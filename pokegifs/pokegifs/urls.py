@@ -19,5 +19,5 @@ import pokegifs.views as views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('pokemon/<search_query>', views.pokemon_search, name='pokemon_search'),
+    path('pokemon/<query>', views.pokemon_search, name='pokemon_search'),
 ]
