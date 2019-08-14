@@ -37,14 +37,12 @@ def pokemon_search(request, query):
                 'gif_url': gif_url,
             })
         except:
-            breakpoint()
             return JsonResponse({
-                'response': response,
+                'error': response.status_code,
                 'message': 'Giphy error: Something happened!'
             })
     except:
-        breakpoint()
         return JsonResponse({
-            'response': response,
+            'error': response.status_code,
             'message': 'Pokeapi error: Something happened!'
         })
