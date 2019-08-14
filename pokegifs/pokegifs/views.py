@@ -2,6 +2,7 @@ from django.http import JsonResponse
 import dotenv
 import os
 import json
+import random
 import requests
 
 dotenv.load_dotenv()
@@ -15,15 +16,17 @@ def pokemon_search(request, query):
         name = body['name']
         poke_id = body['id']
         types = body['types']
-       
+        
         
         try:
             response = requests.get(f'https://api.giphy.com/v1/gifs/search?api_key={giphy_key}&q={name}&rating=g')
-
             body = json.loads(response.content)
-            gif_url = body['data'][0]['url']
 
+            random_num = random.randint(0,len(body['data']))
 
+            gif_url = body['data'][random_num]['url']
+
+            # breakpoint()
 
 
 
@@ -34,10 +37,14 @@ def pokemon_search(request, query):
                 'gif_url': gif_url,
             })
         except:
+            breakpoint()
             return JsonResponse({
-                'message': 'Something happened!'
+                'response': response,
+                'message': 'Giphy error: Something happened!'
             })
     except:
+        breakpoint()
         return JsonResponse({
-            'message': 'Something happened!'
+            'response': response,
+            'message': 'Pokeapi error: Something happened!'
         })
